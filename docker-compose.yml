@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  ros2-dev:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dev
+    container_name: auv_ros2_dev
+    volumes:
+      - ./auv_ws:/workspace/auv_ws
+    tty: true
+    network_mode: host   # lets ROS2 DDS work on LAN
+    environment:
+      - DISPLAY=${DISPLAY}   # GUI forwarding (Linux)
+    devices:
+      - /dev/dri:/dev/dri    # GPU (Linux X11)
