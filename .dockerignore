@@ -1,0 +1,4 @@
+auv_ws/build
+auv_ws/log
+auv_ws/install
+*.pyc

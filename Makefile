@@ -2,10 +2,10 @@
 build-dev:
 	docker compose build
 
-# Run interactive shells
+# Run ephemeral dev shell (cross-platform)
 run-dev:
-	docker compose run --rm ros2-dev bash
+	docker compose run -it --rm ros2-dev bash
 
-# Colcon build inside dev container
-colcon-dev:
-	docker compose run --rm ros2-dev bash -c "cd /workspace/Thresher && colcon build"
+# Clean up containers, volumes, and build artifacts
+clean:
+	docker compose down --volumes --remove-orphans

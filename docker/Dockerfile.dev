@@ -1,20 +1,21 @@
 FROM osrf/ros:humble-desktop
 
-# Install useful ROS2 + dev tools
+# Install ROS2 dev + useful tools
 RUN apt-get update && apt-get install -y \
     python3-colcon-common-extensions \
     ros-humble-xacro \
     ros-humble-gazebo-ros-pkgs \
     git \
+    x11-apps \
+    ros-humble-rosbridge-server \
     && rm -rf /var/lib/apt/lists/*
 
 # Workspace
 WORKDIR /workspace
 COPY ./auv_ws ./auv_ws
 
-# Build workspace (optional – you can defer this)
-RUN . /opt/ros/humble/setup.sh && \
-    cd auv_ws && colcon build || true
+# Build workspace using bash explicitly
+RUN ["/bin/bash", "-c", "source /opt/ros/humble/setup.bash && cd /workspace/auv_ws && colcon build --symlink-install || true"]
 
 # Default: interactive shell with ROS sourced
-CMD ["/bin/bash"]
+CMD ["/bin/bash", "-c", "source /opt/ros/humble/setup.bash && exec bash"]

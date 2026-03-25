@@ -1,4 +1,5 @@
-version: '3.9'
+version: "3.9"
+
 services:
   ros2-dev:
     build:
@@ -6,10 +7,13 @@ services:
       dockerfile: docker/Dockerfile.dev
     container_name: auv_ros2_dev
     volumes:
-      - ./auv_ws:/workspace/auv_ws
+      - ./auv_ws:/workspace/auv_ws\
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw  # X11 socket
     tty: true
-    network_mode: host   # lets ROS2 DDS work on LAN
     environment:
-      - DISPLAY=${DISPLAY}   # GUI forwarding (Linux)
+      - DISPLAY=host.docker.internal:0.0   # Linux GUI forwarding
+      - QT_X11_NO_MITSHM=1                # fixes some Qt issues
     devices:
       - /dev/dri:/dev/dri    # GPU (Linux X11)
+    ports:
+      - "9090:9090"           # Webviz / rosbridge
