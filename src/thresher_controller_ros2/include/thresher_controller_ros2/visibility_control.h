@@ -1,0 +1,32 @@
+#ifndef THRESHER_CONTROLLER_ROS2__VISIBILITY_CONTROL_H_
+#define THRESHER_CONTROLLER_ROS2__VISIBILITY_CONTROL_H_
+#if defined _WIN32 || defined __CYGWIN__
+  #ifdef __GNUC__
+    #define THRESHER_CONTROLLER_ROS2_EXPORT __attribute__ ((dllexport))
+    #define THRESHER_CONTROLLER_ROS2_IMPORT __attribute__ ((dllimport))
+  #else
+    #define THRESHER_CONTROLLER_ROS2_EXPORT __declspec(dllexport)
+    #define THRESHER_CONTROLLER_ROS2_IMPORT __declspec(dllimport)
+  #endif
+  #ifdef THRESHER_CONTROLLER_ROS2_BUILDING_LIBRARY
+    #define THRESHER_CONTROLLER_ROS2_PUBLIC THRESHER_CONTROLLER_ROS2_EXPORT
+  #else
+    #define THRESHER_CONTROLLER_ROS2_PUBLIC THRESHER_CONTROLLER_ROS2_IMPORT
+  #endif
+  #define THRESHER_CONTROLLER_ROS2_PUBLIC_TYPE THRESHER_CONTROLLER_ROS2_PUBLIC
+  #define THRESHER_CONTROLLER_ROS2_LOCAL
+#else
+  #define THRESHER_CONTROLLER_ROS2_EXPORT __attribute__ ((visibility("default")))
+  #define THRESHER_CONTROLLER_ROS2_IMPORT
+  #if __GNUC__ >= 4
+    #define THRESHER_CONTROLLER_ROS2_PUBLIC __attribute__ ((visibility("default")))
+    #define THRESHER_CONTROLLER_ROS2_LOCAL  __attribute__ ((visibility("hidden")))
+  #else
+    #define THRESHER_CONTROLLER_ROS2_PUBLIC
+    #define THRESHER_CONTROLLER_ROS2_LOCAL
+  #endif
+  #define THRESHER_CONTROLLER_ROS2_PUBLIC_TYPE
+#endif
+#endif  // THRESHER_CONTROLLER_ROS2__VISIBILITY_CONTROL_H_
+// Generated 14-May-2026 19:07:05
+ 
